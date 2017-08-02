@@ -18,7 +18,6 @@ fakeroot
 fixesproto
 fixesproto-dev
 flex
-flex-dev
 fontcacheproto
 fontcacheproto-dev
 fontsproto
@@ -195,3 +194,5 @@ git
 opkg-utils
 makepnd
 xz
+bison
+cmake   

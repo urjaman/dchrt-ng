@@ -18,8 +18,8 @@ opkg update
 # Install all the dev packages
 opkg install $(echo `cat packages.txt`)
 
-# Just in case i dont fix this ...
-opkg remove binutils-symlinks --force-depends
+# Upgrading is hard.
+opkg remove binutils-symlinks ncurses-tools --force-depends
 
 # Finish all the upgrades
 opkg upgrade
