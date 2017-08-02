@@ -24,7 +24,9 @@ fontcacheproto-dev
 fontsproto
 fontsproto-dev
 g++
+g++-symlinks
 gcc
+gcc-symlinks
 gettext
 gettext-dev
 glproto
@@ -47,7 +49,6 @@ kbproto
 kbproto-dev
 ldd
 libacl-dev
-libarchive
 libatk-1.0-dev
 libattr-dev
 libblkid-dev
@@ -68,11 +69,8 @@ libgeoclue-dev
 libgeoclue0
 libgettextlib
 libgettextsrc
-libgif4
 libglade-2.0-dev
-libgles-omap3-dev
 libglib-2.0-dev
-libgmp-dev
 libgmp3
 libgnutls-dev
 libgnutls-extra26
@@ -96,13 +94,10 @@ libimobiledevice
 libjasper-dev
 libjasper1
 libjpeg-dev
-libldap-2.4-2
 libltdl-dev
 liblzo-dev
 libmad-dev
 libmodplug-dev
-libmpfr-dev
-libmpfr1
 libmusicbrainz3-6
 libneon25
 libnl-dev
@@ -194,3 +189,9 @@ xineramaproto-dev
 xproto
 xproto-dev
 xtrans-dev
+autoconf
+automake
+git
+opkg-utils
+makepnd
+xz

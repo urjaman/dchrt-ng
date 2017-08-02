@@ -9,11 +9,20 @@ if [ -e /etc/rcS.d/S40configure ]; then
 	rm -f /etc/rcS.d/S40configure
 fi
 
+# Add the dev-feed
+cp szdev-feed.conf /etc/opkg/
+
 # Load the feeds
 opkg update
 
 # Install all the dev packages
 opkg install $(echo `cat packages.txt`)
+
+# Just in case i dont fix this ...
+opkg remove binutils-symlinks --force-depends
+
+# Finish all the upgrades
+opkg upgrade
 
 # Delete files used only in the installation
 rm -rf /inst
