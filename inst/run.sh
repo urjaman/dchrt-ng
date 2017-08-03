@@ -9,7 +9,11 @@ if [ -e /etc/rcS.d/S40configure ]; then
 	rm -f /etc/rcS.d/S40configure
 fi
 
+# Transform the OS :P
 ./sz-upgrade.sh
+
+# Setup an user etc things
+./user-setup.sh
 
 # Delete files used only in the installation
 rm -rf /inst

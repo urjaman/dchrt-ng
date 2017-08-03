@@ -18,6 +18,7 @@ if [ ! -e dchrt-ng/lib64 ]; then
 fi
 
 # Copy the toolchain, remove the "external" sysroot and link to the root of dchrt for that.
+rm -rf dchrt-ng/usr/ngcc-x64
 cp -a ngcc-x64 dchrt-ng/usr
 rm -r dchrt-ng/usr/ngcc-x64/sysroot
 ln -s ../.. dchrt-ng/usr/ngcc-x64/sysroot

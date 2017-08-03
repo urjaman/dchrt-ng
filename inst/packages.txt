@@ -196,3 +196,6 @@ xz
 bison
 cmake   
 gcc-new
+libarchive
+perl-module-file-glob
+perl-module-data-dumper

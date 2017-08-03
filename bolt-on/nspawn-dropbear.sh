@@ -34,7 +34,7 @@ chmod 0700 home/{root,builder}/.ssh
 chmod 0600 home/{root,builder}/.ssh/authorized_keys
 
 # dchrt ships an x86_64 static qemu-arm ... the config file would work for other hosts, so adjust if you need to :P
-if [ "$(uname -m)" = "x86_64" ]; then 
+if [ "$(uname -m)" = "x86_64" ]; then
 	if [ -d  /etc/binfmt.d ]; then
 		if [ ! -f /etc/binfmt.d/qemu-arm-static.conf ]; then
 			cp qemu-arm-static.conf /etc/binfmt.d
@@ -44,4 +44,4 @@ if [ "$(uname -m)" = "x86_64" ]; then
 	fi
 fi
 echo "You should be able to login with ssh root@127.0.0.1 -p $DROPBEAR_PORT or builder@..."
-systemd-nspawn -D "$(pwd)" -M dchrt /usr/local/sbin/dropbear -s -F -E -p 127.0.0.1:$DROPBEAR_PORT
+systemd-nspawn -D "$(pwd)" -M dchrt /usr/sbin/dropbear -s -F -E -R -p 127.0.0.1:$DROPBEAR_PORT

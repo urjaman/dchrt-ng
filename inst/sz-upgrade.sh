@@ -2,6 +2,10 @@
 set -x
 set -e
 
+# This should be an ld script, but is a symlink to /lib/libc.so.6
+# Apparently everyone is okay with it removed, but not with the link.
+rm -f /lib/libc.so
+
 # Add the dev-feed
 cp szdev-feed.conf /etc/opkg/
 

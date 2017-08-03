@@ -50,18 +50,18 @@ fi
 #binutils
 if [ ! -e bb ]; then
  mkdir bb; cd bb
- ../binutils-gdb/configure --prefix=$PREFIX --target=$TARGET --enable-threads --enable-shared --enable-ld=default --enable-gold --enable-plugins --enable-relro --with-pic --disable-nls --disable-gdb --disable-werror
+ ../binutils-gdb/configure --prefix=$PREFIX --target=$TARGET --disable-nls --disable-gdb --disable-werror --without-isl --disable-multilib
  make $MJ
  make install
  cd ..
 fi
 
 #gcc
-if [ ! -e bb ]; then
+if [ ! -e gb ]; then
  mkdir gb; cd gb
  ../gcc/configure --prefix=$PREFIX --target=$TARGET --disable-nls --with-sysroot=$PREFIX/sysroot \
-       --enable-languages=c,c++ --disable-libssp --disable-libquadmath \
-       --disable-werror
+       --enable-languages=c,c++ --disable-libssp --disable-libquadmath --without-isl \
+       --disable-werror --disable-multilib
  make $MJ
  make install
 fi
