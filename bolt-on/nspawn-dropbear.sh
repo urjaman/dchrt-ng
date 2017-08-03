@@ -1,10 +1,10 @@
 #!/bin/bash
-DROPBEAR_PORT=4433
+DROPBEAR_PORT=4434
 if [ $(id -u) -ne 0 ]; then
 	echo "please run me with sudo or as root with your username as the parameter" 2>&1
 	exit 1
 fi
-if [ ! -d dev/pts ]; then
+if [ ! -e dev/ptmx ]; then
 	echo "Make sure your working directory is in dchrt" 2>&1
 	exit 1
 fi
@@ -43,5 +43,5 @@ if [ "$(uname -m)" = "x86_64" ]; then
 		fi
 	fi
 fi
-echo "You should be able to login with ssh root@127.0.0.1 -p $DROPBEAR_PORT or builder@..."
-systemd-nspawn -D "$(pwd)" -M dchrt /usr/sbin/dropbear -s -F -E -R -p 127.0.0.1:$DROPBEAR_PORT
+echo "You should be able to login with ssh builder@127.0.0.1 -p $DROPBEAR_PORT or root@..."
+systemd-nspawn -D "$(pwd)" -M dchrt-ng /usr/sbin/dropbear -s -F -E -R -p 127.0.0.1:$DROPBEAR_PORT
