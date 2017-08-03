@@ -7,7 +7,6 @@ bluez-hcidump-dev
 compositeproto
 compositeproto-dev
 consolekit
-consolekit-dev
 cpp
 cpp-symlinks
 damageproto
