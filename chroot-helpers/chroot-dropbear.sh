@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Chroot gracely into dchrt
 DROPBEAR_PORT=4434
 if [ $(id -u) -ne 0 ]; then
@@ -23,8 +23,13 @@ if [ -n "$SUDO_USER" ]; then
 fi
 echo "home set $USERHOME"
 if [ "$(ls $USERHOME/.ssh | grep id_ | grep pub | wc -l)" = "0" ]; then
-	echo "Please make an ssh key for yourself using ssh-keygen"
-	exit 1
+	if [ -f $USERHOME/.ssh/dropbear_private_key ]; then
+		dropbearkey -y -f $USERHOME/.ssh/dropbear_private_key | grep ssh > $USERHOME/.ssh/id_rsa.pub
+		chown $SUDO_USER $USERHOME/.ssh/id_rsa.pub
+	else
+		echo "Please make an ssh key for yourself using dropbearkey (or ssh-keygen)"
+		exit 1
+	fi
 fi
 KEYS="$USERHOME/.ssh/id_*.pub"
 
@@ -37,11 +42,13 @@ chmod 0700 home/{root,builder}/.ssh
 chmod 0600 home/{root,builder}/.ssh/authorized_keys
 
 echo "Mounting chroot"
-mount -t proc proc proc/
-mount -t sysfs sys sys/
-mount -o bind /dev dev/
-mount -t devpts pts dev/pts/
-mount -t tmpfs tmpfs tmp
+[ ! -d proc/1 ] && mount -t proc proc proc/
+[ ! -d sys/dev ] && mount -t sysfs sys sys/
+[ ! -d dev/bus ] && mount -o bind /dev dev/
+[ ! -e dev/pts/ptmx ] && mount -t devpts pts dev/pts/
+[ ! -e tmp/.tmpfs ] && mount -t tmpfs tmpfs tmp
+touch tmp/.tmpfs
+
 if [ -f /etc/resolv.conf ]; then
 	cp -L /etc/resolv.conf etc/resolv.conf
 fi
