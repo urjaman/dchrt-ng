@@ -1,6 +1,11 @@
 #!/bin/bash
 # Meant for the container or chroot use, does away with the first run wizard
 
+if [ -f /etc/pandora/first-boot ]; then
+	echo "First boot process already done, not re-doing user-setup.sh"
+	exit 0
+fi
+
 # Editables
 username=builder
 hostname=dchrt-ng
