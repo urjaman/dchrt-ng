@@ -32,6 +32,12 @@ a simple x86-64 su binary (busybox-based) along with the native-cross-compiler.
 To create the tree for container use (including the toolchain and su hacks), use make-container.sh
 Look inside it for the component parts if you'd like to customize.
 
+At the time of writing, the latest (and first) tarball of a this type of tree is at:
+https://urjaman.ddns.net/dchrt-ng.tar.xz
+
+Recommended command to unpack it is (creates a directory dchrt-ng):
+$ sudo tar --numeric-owner -xf dchrt-ng.tar.xz
+
 
 2. Chroot Mode (make-chroot.sh)
 --------------
