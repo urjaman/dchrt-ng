@@ -23,3 +23,12 @@ cp -a ngcc-x64 dchrt-ng/usr
 rm -r dchrt-ng/usr/ngcc-x64/sysroot
 ln -s ../.. dchrt-ng/usr/ngcc-x64/sysroot
 
+# If there's a helper file for ngcc, accompany it with the -x64 file (this is just incase username different or something weird)
+if [ -f dchrt-ng/home/builder/ngcc ]; then
+cat > dchrt-ng/home/builder/ngcc-x64 << "EOF"
+export PATH=/usr/ngcc-x64/bin:/usr/bin:/bin
+export CXX=g++
+export CC=gcc
+EOF
+chown 1000:100 dchrt-ng/home/builder/ngcc-x64
+fi

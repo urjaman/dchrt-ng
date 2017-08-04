@@ -29,6 +29,14 @@ update-rc.d -f blueprobe remove
 update-rc.d -f dropbear remove
 update-rc.d -f wl1251-init remove
 
+# Give the builder a "hint" on how to use the new gcc
+cat > /home/$username/ngcc << "EOF"
+export PATH=/usr/ngcc/bin:/usr/bin:/bin
+export CXX=g++
+export CC=gcc
+EOF
+chown 1000:100 /home/$username/ngcc
+
 touch /etc/pandora/first-boot
 chmod 0666 /etc/pandora/first-boot
 

@@ -22,5 +22,3 @@ fi
 # run the in-container dev stuff installation process
 sudo ./nspawn-install.sh
 
-# "bolt on" the helpers for using the final product :)
-sudo cp -a bolt-on/* dchrt-ng/
