@@ -1,0 +1,80 @@
+The pandora DEVelopment CHRooT, Next Generation ;)
+--------------------------------------------------
+
+So this is the image assembly machinery for a somewhat
+"hybrid" distribution based on the pandora SuperZaxxon,
+but enhanced and updated for development use.
+
+The updates are made by using an arch makepkg-derived
+makepnd (that in this case makes .ipk's for opkg) 
+and PNDBUILDs that are at https://github.com/urjaman/szdev-recipes.git
+
+The 3 ways of using this are:
+
+1. As a systemd-nspawn container on a modern x86-64 linux box (only archlinux tested)
+2. As a on-device development chroot on the pandora (like the original dchrt)
+3. As an enhancement for an SD install of SuperZaxxon on the pandora
+
+1. Container Mode (make-container.sh)
+-----------------
+The container is based on transparent qemu user mode emulation with binfmt,
+this means that you can also run x86-64 binaries inside the container, if
+the correct libraries are installed etc.
+
+Thusly, there are scripts for building an x86-64->arm-cross-compiler
+with dchrt as the sysroot, and then installing that inside the container
+for a good compilation speedup.
+
+The qemu-user emulation has the side-effect that setuid binaries dont work, thus
+the ARM versions of sudo and su dont work. Thats why there is a hack to install
+a simple x86-64 su binary (busybox-based) along with the native-cross-compiler.
+
+To create the tree for container use (including the toolchain and su hacks), use make-container.sh
+Look inside it for the component parts if you'd like to customize.
+
+
+2. Chroot Mode (make-chroot.sh)
+--------------
+
+The pandora chroot version is distributed as a squashfs image, so it spares your pandora SD
+space and you dont need to spend time unpacking it before use.
+To make the squashfs image usable, a script is provided that mounts it and an adjacent
+directory as the RW space using aufs, and then runs the chroot-dropbear.sh script from
+inside the squashfs.
+
+To create this squashfs image-and-script distribution, use make-chroot.sh
+
+At the time of writing, the latest (and first) such distribution is also at:
+https://urjaman.ddns.net/dchrt-ng-chroot/
+
+
+3. Enhanced SuperZaxxon install on an SD card (inst/sz-upgrade.sh)
+-------------------------------------------------------------------
+This is very experimental. Take backups before messing with your beloved SD install.
+
+To install, first install SZ on an SD card as you would normally do, boot
+it on your pandora and do the first boot wizard etc.
+Then copy the inst/ directory onto it (e.g. scp), and run the sz-upgrade.sh script as root.
+
+
+More info
+---------
+
+Dropbear SSH server is used as the "entry point" into the system in both
+container and chroot modes. Reasons:
+1. It's an easy way to get as many shells as you like inside it
+2. In container mode, if you e.g. run bash directly there is no job control.
+   I dont know why (i suspect the qemu might be related), but ssh solves this.
+3. In chroot mode, (un-)doing the chroot setup cleanly while allowing multiple logins
+   would be rather cumbersome, but again, ssh solves this.
+
+The new gcc is at /usr/ngcc, so add /usr/ngcc/bin to your PATH to use it,
+or /usr/ngcc-x64/bin if you want use the x86 binaries in the container.
+The container and chroot "images" provide little helpers for the builder in
+the builder home directory. Include one of these fragments to select the gcc, 
+e.g. to use the new gcc:
+$ . ngcc
+
+For container only, the "cross" gcc:
+$ . ngcc-x64 
+
