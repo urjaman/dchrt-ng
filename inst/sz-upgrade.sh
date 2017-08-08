@@ -22,6 +22,9 @@ opkg install $(echo `cat packages.txt`)
 echo "/usr/ngcc/lib" >> /etc/ld.so.conf
 ldconfig
 
+# Install the perl module Error since that is needed by git interactive add
+echo "no" | perl -MCPAN -e "install Error"
+
 # This should be an ld script, but is a symlink to /lib/libc.so.6
 # Apparently everyone is okay with it removed, but not with the link.
 rm -f /lib/libc.so
