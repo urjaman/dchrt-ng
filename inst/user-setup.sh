@@ -34,9 +34,14 @@ update-rc.d -f blueprobe remove
 update-rc.d -f dropbear remove
 update-rc.d -f wl1251-init remove
 
+# Set LANG and PATH in .bashrc since thats what we get run
+# on a dropbear login and i'm lazy
+echo "export PATH=/usr/sbin:/usr/bin:/sbin:/bin" >> /home/$username/.bashrc
+echo "export LANG=en_US.UTF-8" >> /home/$username/.bashrc
+
 # Give the builder a "hint" on how to use the new gcc
 cat > /home/$username/ngcc << "EOF"
-export PATH=/usr/ngcc/bin:/usr/bin:/bin
+export PATH=/usr/ngcc/bin:/usr/sbin:/usr/bin:/sbin:/bin
 export CXX=g++
 export CC=gcc
 EOF
