@@ -26,7 +26,6 @@ g++-symlinks
 gcc
 gcc-symlinks
 gettext
-gettext-dev
 glproto
 glproto-dev
 gnome-common
