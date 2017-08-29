@@ -50,7 +50,7 @@ fi
 #binutils
 if [ ! -e bb ]; then
  mkdir bb; cd bb
- ../binutils-gdb/configure --prefix=$PREFIX --target=$TARGET --disable-nls --disable-gdb --disable-werror --without-isl --disable-multilib
+ ../binutils-gdb/configure --prefix=$PREFIX --target=$TARGET --disable-nls --disable-gdb --disable-werror --without-isl --disable-multilib --with-sysroot=$PREFIX/sysroot
  make $MJ
  make install
  cd ..
