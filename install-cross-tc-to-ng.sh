@@ -32,5 +32,5 @@ export CC=gcc
 EOF
 chown 1000:100 dchrt-ng/home/builder/ngcc-x64
 # and have it be the default compiler
-echo ". ngcc-x64" >> dchrt-ng/home/builder/.bashrc
+echo ". ~/ngcc-x64" >> dchrt-ng/home/builder/.bashrc
 fi
