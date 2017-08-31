@@ -22,29 +22,40 @@ mkdir -p tcsrc
 cd tcsrc
 
 #binutils and gdb
+# 2.29
+BINUTILS_HASH=dd9a28c0966d13924fbd1096a724ae334954d830
 if [ ! -e binutils-gdb ]; then
  git clone git://sourceware.org/git/binutils-gdb.git
  cd binutils-gdb
- # 2.28
- git checkout 09e514a92b6bb7c910051a7fafc9fded8a687848
- cd ..
+ git checkout $BINUTILS_HASH
+else
+ cd binutils-gdb
+ git fetch
+ git reset --hard $BINUTILS_HASH
 fi
+cd ..
 
 
 #gcc and support stuff
+# 7.2.0
+GCC_HASH=1bd23ca8c30f4827c4bea23deedf7ca33a86ffb5
 if [ ! -e gcc ]; then
  git clone git://gcc.gnu.org/git/gcc.git
  wget https://ftp.gnu.org/gnu/gmp/gmp-4.3.2.tar.bz2
  wget https://ftp.gnu.org/gnu/mpc/mpc-1.0.3.tar.gz
  wget http://www.mpfr.org/mpfr-current/mpfr-3.1.5.tar.bz2
  cd gcc;
- # 7.1.1
- git checkout d791474f3fc2133fa0c310e566988b0cbdff321e
+ git checkout $GCC_HASH
  tar xf ../gmp-*.tar.*; mv gmp-* gmp
  tar xf ../mpc-*.tar.*; mv mpc-* mpc
  tar xf ../mpfr-*.tar.*; mv mpfr-* mpfr
  cd ..
  rm gmp-*.tar.*  mpc-*.tar.* mpfr-*.tar.*
+else
+ cd gcc
+ git fetch
+ git reset --hard $GCC_HASH
+ cd ..
 fi
 
 #binutils
