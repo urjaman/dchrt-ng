@@ -22,17 +22,18 @@ this means that you can also run x86-64 binaries inside the container, if
 the correct libraries are installed etc.
 
 Thusly, there are scripts for building an x86-64->arm-cross-compiler
-with dchrt as the sysroot, and then installing that inside the container
+with dchrt as the sysroot. This toolchain is also packages as an .ipk in the szdev feed.
+From where it is installed by default into the container version
 for a good compilation speedup.
 
 The qemu-user emulation has the side-effect that setuid binaries dont work, thus
-the ARM versions of sudo and su dont work. Thats why there is a hack to install
-a simple x86-64 su binary (busybox-based) along with the native-cross-compiler.
+the ARM versions of sudo and su dont work. Thats why the x86-64 toolchain carries
+with it a simple x86-64 su binary (busybox-based).
 
 To create the tree for container use (including the toolchain and su hacks), use make-container.sh
 Look inside it for the component parts if you'd like to customize.
 
-At the time of writing, the latest (and first) tarball of a this type of tree is at:
+At the time of writing, the latest tarball of a this type of tree is at:
 https://urjaman.ddns.net/dchrt-ng.tar.xz
 
 Recommended command to unpack it is (creates a directory dchrt-ng):
@@ -50,13 +51,13 @@ inside the squashfs.
 
 To create this squashfs image-and-script distribution, use make-chroot.sh
 
-At the time of writing, the latest (and first) such distribution is also at:
+At the time of writing, the latest such distribution is also at:
 https://urjaman.ddns.net/dchrt-ng-chroot/
 
 
 3. Enhanced SuperZaxxon install on an SD card (inst/sz-upgrade.sh)
 -------------------------------------------------------------------
-This is very experimental. Take backups before messing with your beloved SD install.
+This is experimental. Take backups before messing with your beloved SD install.
 
 To install, first install SZ on an SD card as you would normally do, boot
 it on your pandora and do the first boot wizard etc.
@@ -81,6 +82,20 @@ the builder home directory. Include one of these fragments to select the gcc,
 e.g. to use the new gcc:
 $ . ngcc
 
-For container only, the "cross" gcc:
+For container only, the "cross" gcc (this is included by default in .bashrc):
 $ . ngcc-x64 
 
+Short script descriptions (for other scripts)
+-------------------------
+make-both.sh - makes both the chroot and container versions in one pass
+make-x64-ipk.sh - does the whole process for creating the toolchain ipk
+
+--- below this line you propably dont need to use these scripts directly ---
+
+cleanup-tc.sh - removes the toolchain build products
+make-dchrt-ng.sh - makes the base system without specifics to chroot or container mode
+make-cross-tc.sh - build the cross toolchain to ngcc-x64
+build-su-hack.sh - used by make-x64-ipk.sh
+nspawn-install.sh - used by make-dchrt-ng.sh to enter the nspawn'd portion of the install
+make-container-post.sh - used by make-both.sh, does what is special about container mode
+do-cross-tc-to-ng.sh - installs the cross tc .ipk from the feed + other hacks for the container version
