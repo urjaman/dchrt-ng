@@ -21,6 +21,8 @@ cp -v $X64_IPK dchrt-ng/
 systemd-nspawn -D "$(pwd)/dchrt-ng" -M dchrt-ng-inst /usr/bin/opkg install /$X64_IPK
 rm dchrt-ng/$X64_IPK
 
+# Move sudo
+[ -f dchrt-ng/usr/bin/sudo ] && mv dchrt-ng/usr/bin/sudo dchrt-ng/usr/bin/sudo.real
 
 # If there's a helper file for ngcc, accompany it with the -x64 file (this is just incase username different or something weird)
 if [ -f dchrt-ng/home/builder/ngcc ]; then
