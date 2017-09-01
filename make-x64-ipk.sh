@@ -36,7 +36,8 @@ cp -v busybox/busybox $TGT/usr/ngcc-x64/bin/su
 chmod +s $TGT/usr/ngcc-x64/bin/su
 
 # Make the ipk
-. x64-ipk-name
+X64_IPK_REV=1
+X64_IPK=toolchain-x64-1.0-r$X64_IPK_REV.ipk
 
 make_ipk_control() {
 	echo "Package: toolchain-x64"
