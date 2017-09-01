@@ -200,3 +200,4 @@ perl-module-file-glob
 perl-module-data-dumper
 perl-dev
 libmpc
+binutils-libs-compat
