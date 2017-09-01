@@ -2,24 +2,13 @@
 set -e
 set -x
 
-. x64-ipk-name
-
-if [ ! -f $X64_IPK ]; then
-	echo "please make the cross tc and the x64 ipk first" 2>&1
-	exit 1
-fi
-
-
 if [ $(id -u) -ne 0 ]; then
 	echo "please run me with sudo" 2>&1
 	exit 1
 fi
 
-
-# Have the system install the ipk itself
-cp -v $X64_IPK dchrt-ng/
-systemd-nspawn -D "$(pwd)/dchrt-ng" -M dchrt-ng-inst /usr/bin/opkg install /$X64_IPK
-rm dchrt-ng/$X64_IPK
+# Just install the .ipk from the feed
+systemd-nspawn -D "$(pwd)/dchrt-ng" -M dchrt-ng-inst /usr/bin/opkg install toolchain-x64
 
 # Move sudo
 [ -f dchrt-ng/usr/bin/sudo ] && mv dchrt-ng/usr/bin/sudo dchrt-ng/usr/bin/sudo.real

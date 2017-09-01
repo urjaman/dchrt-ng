@@ -4,6 +4,9 @@ set -x
 
 TGT=ngcc-ipk
 
+# Create the cross toolchain if not built yet.
+[ ! -d ngcc-x64 ] && ./make-cross-tc.sh
+
 # Install the cross toolchain and related binaries
 
 # Okay so this just grabs a few of the host system libraries. Maybe a "bit" fragile :P

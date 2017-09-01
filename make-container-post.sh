@@ -2,13 +2,7 @@
 set -e
 set -x
 
-# Make sure we have the toolchain ipk
-. x64-ipk-name
-if [ ! -f $X64_IPK ]; then
-	./make-cross-tc.sh
-	./make-x64-ipk.sh
-fi
-
+# Install the toolchain (and the little tweakups associated with it).
 sudo ./do-cross-tc-to-ng.sh
 
 # "bolt on" the helpers for using the final product :)
