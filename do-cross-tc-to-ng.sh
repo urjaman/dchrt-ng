@@ -2,12 +2,25 @@
 set -e
 set -x
 
+. x64-ipk-name
+
+if [ ! -f $X64_IPK ]; then
+	echo "please make the cross tc and the x64 ipk first" 2>&1
+	exit 1
+fi
+
+
 if [ $(id -u) -ne 0 ]; then
 	echo "please run me with sudo" 2>&1
 	exit 1
 fi
 
-./install-cross-tc.sh
+
+# Have the system install the ipk itself
+cp -v $X64_IPK dchrt-ng/
+systemd-nspawn -D "$(pwd)/dchrt-ng" -M dchrt-ng-inst /usr/bin/opkg install /$X64_IPK
+rm dchrt-ng/$X64_IPK
+
 
 # If there's a helper file for ngcc, accompany it with the -x64 file (this is just incase username different or something weird)
 if [ -f dchrt-ng/home/builder/ngcc ]; then

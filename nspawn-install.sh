@@ -20,4 +20,4 @@ if [ "$(uname -m)" = "x86_64" ]; then
 fi
 rm -rf dchrt-ng/inst
 cp -a inst dchrt-ng/inst
-systemd-nspawn -D "$(pwd)/dchrt-ng" -M dchrt-ng /inst/run.sh
+systemd-nspawn -D "$(pwd)/dchrt-ng" -M dchrt-ng-inst /inst/run.sh
