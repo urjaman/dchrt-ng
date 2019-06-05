@@ -12,7 +12,7 @@ fi
 if [ "$(uname -m)" = "x86_64" ]; then
 	if [ -d  /etc/binfmt.d ]; then
 		if [ ! -f /etc/binfmt.d/qemu-arm-static.conf ]; then
-			cp bolt-on/qemu-arm-static.conf /etc/binfmt.d
+			cp container-helpers/qemu-arm-static.conf /etc/binfmt.d
 			systemctl restart systemd-binfmt
 			echo "Installed /etc/binfmt.d/qemu-arm-static.conf"
 		fi
