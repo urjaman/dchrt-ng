@@ -71,7 +71,7 @@ libglib-2.0-dev
 libgmp3
 libgnutls-dev
 libgnutls-extra26
-libgnutlsxx26
+libgnutlsxx27
 libgpg-error-dev
 libgpod
 libgpsbt-dev
